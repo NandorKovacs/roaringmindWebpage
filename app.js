@@ -35,7 +35,7 @@ function draw() {
   ctx.beginPath();
 
 
-  for (let l in figure) {
+  for (let l of figure) {
     ctx.moveTo(l.a.x, l.a.y);
     ctx.lineTo(l.b.x, l.b.y);
   }
@@ -94,7 +94,7 @@ function nextStep() {
   //   newFigure.push(new Line(triangle.b, triangle.c));
   // }
 
-  figure = newFigure;
+  //figure = newFigure;
 }
 
 window.onload = main;
