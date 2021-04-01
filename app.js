@@ -3,6 +3,7 @@ let width = 3840;
 let height = 2160;
 
 function main() {
+  console.log("main");
   const windowX = window.innerWidth;
   const windowY = window.innerHeight;
 
@@ -14,7 +15,7 @@ function main() {
   ctx = cnvs.getContext("2d");
 
 
-  figure =
+  // figure =
 
     requestAnimationFrame(frame);
 }
@@ -34,10 +35,14 @@ function frame() {
 function draw() {
   ctx.beginPath();
 
-
-  for (let l in figure) {
-    ctx.moveTo(l.a.x, l.a.y);
-    ctx.lineTo(l.b.x, l.b.y);
+  // console.log(figure);
+  // for (let l of figure) {
+  //   ctx.moveTo(l.a.x, l.a.y);
+  //   ctx.lineTo(l.b.x, l.b.y);
+  // }
+  ctx.moveTo(100,100);
+  for (const p of figure) {
+    ctx.lineTo(p.x, p.y);
   }
 
   ctx.stroke();
@@ -68,6 +73,7 @@ class Coordinate {
 let figure = [];
 
 function nextStep() {
+  // console.log('step');
   let newFigure = [];
 
   if (figure.length == 0) {
@@ -94,7 +100,7 @@ function nextStep() {
   //   newFigure.push(new Line(triangle.b, triangle.c));
   // }
 
-  figure = newFigure;
+  // figure = newFigure;
 }
 
 window.onload = main;
