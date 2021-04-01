@@ -3,6 +3,7 @@ let width = 3840;
 let height = 2160;
 
 function main() {
+  console.log("main");
   const windowX = window.innerWidth;
   const windowY = window.innerHeight;
 
@@ -14,7 +15,7 @@ function main() {
   ctx = cnvs.getContext("2d");
 
 
-  figure =
+  // figure =
 
     requestAnimationFrame(frame);
 }
@@ -68,6 +69,7 @@ class Coordinate {
 let figure = [];
 
 function nextStep() {
+  // console.log('step');
   let newFigure = [];
 
   if (figure.length == 0) {
