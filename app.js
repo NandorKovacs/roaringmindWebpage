@@ -89,4 +89,4 @@ function nextStep() {
   figure = newFigure;
 }
 
-window.onload(main);
+window.onload = main;
