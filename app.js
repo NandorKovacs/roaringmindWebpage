@@ -8,8 +8,8 @@ function main() {
 
   const cnvs = document.getElementById("cnvs");
 
-  cnvs.style.width = `${ablakSzelesseg}px`;
-  cnvs.style.height = `${ablakMagassag}px`;
+  cnvs.style.width = `${windowX}px`;
+  cnvs.style.height = `${windowY}px`;
 
   ctx = cnvs.getContext("2d");
 
