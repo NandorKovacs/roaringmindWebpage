@@ -14,9 +14,9 @@ function main() {
   ctx = cnvs.getContext("2d");
 
 
-  figure = new Triangle(windowX / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 0);
+  figure =
 
-  requestAnimationFrame(frame);
+    requestAnimationFrame(frame);
 }
 
 
@@ -24,9 +24,9 @@ let frameCount = 0;
 let stepFrequency = 20;
 
 function frame() {
-  // if (frameCount % 60 / stepFrequency == 0) {
-  //   nextStep();
-  // }
+  if (frameCount % 60 / stepFrequency == 0) {
+    nextStep();
+  }
   draw();
   requestAnimationFrame(frame);
 }
@@ -70,21 +70,29 @@ let figure = [];
 function nextStep() {
   let newFigure = [];
 
-  for (let l in figure) {
-    let xside = Math.pow(Math.abs(l.a.x - l.b.x), 2);
-    let yside = Math.pow(Math.abs(l.a.y - l.b.y), 2);
+  if (figure.length == 0) {
+    let triangle = new Triangle(windowX / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 0);
 
-    let size = Math.sqrt(xside, yside);
-
-    let rotation = Math.atan2(l.a.x, l.a.y) * 180 / Math.PI;
-
-    let triangle = new Triangle(size, l.a, rotation);
-
-    newFigure.push(new Line(l.a, triangle.a));
-    newFigure.push(new Line(triangle.c, l.b));
-    newFigure.push(new Line(triangle.a, triangle.b));
-    newFigure.push(new Line(triangle.b, triangle.c));
+    figure.push(triangle.a);
+    figure.push(triangle.b);
+    figure.push(triangle.c);
   }
+
+  // for (let l in figure) {
+  //   let xside = Math.pow(Math.abs(l.a.x - l.b.x), 2);
+  //   let yside = Math.pow(Math.abs(l.a.y - l.b.y), 2);
+
+  //   let size = Math.sqrt(xside, yside);
+
+  //   let rotation = Math.atan2(l.a.x, l.a.y) * 180 / Math.PI;
+
+  //   let triangle = new Triangle(size, l.a, rotation);
+
+  //   newFigure.push(new Line(l.a, triangle.a));
+  //   newFigure.push(new Line(triangle.c, l.b));
+  //   newFigure.push(new Line(triangle.a, triangle.b));
+  //   newFigure.push(new Line(triangle.b, triangle.c));
+  // }
 
   figure = newFigure;
 }
