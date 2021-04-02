@@ -69,7 +69,6 @@ class Coordinate {
 let figure = [];
 
 function nextStep() {
-  // console.log('step');
   let newFigure = [];
 
   if (figure.length == 0) {
@@ -80,23 +79,23 @@ function nextStep() {
     figure.push(new Line(triangle.c, triangle.a));
   }
 
-  // for (let l in figure) {
-  //   let xside = Math.pow(Math.abs(l.a.x - l.b.x), 2);
-  //   let yside = Math.pow(Math.abs(l.a.y - l.b.y), 2);
+  for (let l of figure) {
+    let xside = Math.pow(Math.abs(l.a.x - l.b.x), 2);
+    let yside = Math.pow(Math.abs(l.a.y - l.b.y), 2);
 
-  //   let size = Math.sqrt(xside, yside);
+    let size = Math.sqrt(xside, yside);
 
-  //   let rotation = Math.atan2(l.a.x, l.a.y) * 180 / Math.PI;
+    let rotation = Math.atan2(l.a.x, l.a.y) * 180 / Math.PI;
 
-  //   let triangle = new Triangle(size, l.a, rotation);
+    let triangle = new Triangle(size, l.a, rotation);
 
-  //   newFigure.push(new Line(l.a, triangle.a));
-  //   newFigure.push(new Line(triangle.c, l.b));
-  //   newFigure.push(new Line(triangle.a, triangle.b));
-  //   newFigure.push(new Line(triangle.b, triangle.c));
-  // }
+    newFigure.push(new Line(l.a, triangle.a));
+    newFigure.push(new Line(triangle.c, l.b));
+    newFigure.push(new Line(triangle.a, triangle.b));
+    newFigure.push(new Line(triangle.b, triangle.c));
+  }
 
-  //figure = newFigure;
+  figure = newFigure;
 }
 
 window.onload = main;
