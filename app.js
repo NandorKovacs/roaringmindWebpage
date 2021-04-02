@@ -47,8 +47,8 @@ function draw() {
 class Triangle {
   constructor(size, origin, rotation) {
     this.a = origin;
-    this.b = new Coordinate(Math.cos(rotation) * size + origin.x, Math.sin(rotation) * size + origin.y);
-    this.c = new Coordinate(Math.cos(rotation + 60) * size + origin.x, Math.sin(rotation + 60) * size + origin.y)
+    this.b = new Coordinate(Math.cos(rotation * (Math.PI / 180)) * size + origin.x, Math.sin(rotation * (Math.PI / 180)) * size + origin.y);
+    this.c = new Coordinate(Math.cos((rotation + 60) * (Math.PI / 180)) * size + origin.x, Math.sin(rotation + 60 * (Math.PI / 180)) * size + origin.y)
   }
 }
 
