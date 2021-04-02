@@ -23,10 +23,12 @@ function main() {
 
 let frameCount = 0;
 let stepFrequency = 20;
+let didone = false;
 
 function frame() {
-  if (frameCount % 60 / stepFrequency == 0) {
+  if (frameCount % 60 / stepFrequency == 0 && !didone) {
     nextStep();
+    didone = true;
   }
   draw();
   requestAnimationFrame(frame);
