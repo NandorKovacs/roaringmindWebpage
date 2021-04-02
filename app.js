@@ -79,9 +79,10 @@ function nextStep() {
     figure.push(new Line(triangle.a, triangle.b));
     figure.push(new Line(triangle.b, triangle.c));
     figure.push(new Line(triangle.c, triangle.a));
+    return;
   }
 
-  for (let l of figure) {
+  for (let i = 0; i < 1; ++i) {
     let xside = Math.pow(Math.abs(l.a.x - l.b.x), 2);
     let yside = Math.pow(Math.abs(l.a.y - l.b.y), 2);
 
@@ -97,10 +98,10 @@ function nextStep() {
     console.log(rotation + "-----rotation");
     console.log(triangle + "-----triangle");
 
-    // newFigure.push(new Line(l.a, triangle.a));
-    // newFigure.push(new Line(triangle.c, l.b));
-    // newFigure.push(new Line(triangle.a, triangle.b));
-    // newFigure.push(new Line(triangle.b, triangle.c));
+    newFigure.push(new Line(l.a, triangle.a));
+    newFigure.push(new Line(triangle.c, l.b));
+    newFigure.push(new Line(triangle.a, triangle.b));
+    newFigure.push(new Line(triangle.b, triangle.c));
   }
 
   figure = newFigure;
