@@ -83,8 +83,8 @@ function nextStep() {
   }
 
   for (let i = 0; i < 1; ++i) {
-    let xside = Math.pow(Math.abs(l.a.x - l.b.x), 2);
-    let yside = Math.pow(Math.abs(l.a.y - l.b.y), 2);
+    let xside = Math.pow(Math.abs(figure[i].a.x - figure[i].b.x), 2);
+    let yside = Math.pow(Math.abs(figure[i].a.y - figure[i].b.y), 2);
 
     let size = Math.sqrt(xside, yside);
 
@@ -98,8 +98,8 @@ function nextStep() {
     console.log(rotation + "-----rotation");
     console.log(triangle + "-----triangle");
 
-    newFigure.push(new Line(l.a, triangle.a));
-    newFigure.push(new Line(triangle.c, l.b));
+    newFigure.push(new Line(figure[i].a, triangle.a));
+    newFigure.push(new Line(triangle.c, figure[i].b));
     newFigure.push(new Line(triangle.a, triangle.b));
     newFigure.push(new Line(triangle.b, triangle.c));
   }
