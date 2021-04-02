@@ -75,9 +75,9 @@ function nextStep() {
   if (figure.length == 0) {
     let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 0);
 
-    figure.push(triangle.a);
-    figure.push(triangle.b);
-    figure.push(triangle.c);
+    figure.push(new Line(triangle.a, triangle.b));
+    figure.push(new Line(triangle.b, triangle.c));
+    figure.push(new Line(triangle.c, triangle.a));
   }
 
   // for (let l in figure) {
