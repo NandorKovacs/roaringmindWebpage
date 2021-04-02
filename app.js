@@ -91,10 +91,16 @@ function nextStep() {
 
     let triangle = new Triangle(size, l.a, rotation);
 
-    newFigure.push(new Line(l.a, triangle.a));
-    newFigure.push(new Line(triangle.c, l.b));
-    newFigure.push(new Line(triangle.a, triangle.b));
-    newFigure.push(new Line(triangle.b, triangle.c));
+    console.log(xside + "-----xside");
+    console.log(yside + "-----yside");
+    console.log(size + "-----size");
+    console.log(rotation + "-----rotation");
+    console.log(triangle + "-----triangle");
+
+    // newFigure.push(new Line(l.a, triangle.a));
+    // newFigure.push(new Line(triangle.c, l.b));
+    // newFigure.push(new Line(triangle.a, triangle.b));
+    // newFigure.push(new Line(triangle.b, triangle.c));
   }
 
   figure = newFigure;
