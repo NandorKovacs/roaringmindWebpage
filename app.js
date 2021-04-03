@@ -72,17 +72,40 @@ class Coordinate {
 let figure = [];
 
 function nextStep() {
-  let newFigure = figure;
+  //let newFigure = figure;
   figure = [];
 
-  if (figure.length == 0) {
-    let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 90);
+  let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 90);
 
-    figure.push(new Line(triangle.a, triangle.b));
-    figure.push(new Line(triangle.b, triangle.c));
-    figure.push(new Line(triangle.c, triangle.a));
-    return;
+  figure.push(new Line(triangle.a, triangle.b));
+  figure.push(new Line(triangle.b, triangle.c));
+  figure.push(new Line(triangle.c, triangle.a));
+
+  for (let l of figure) {
+    let xside = Math.pow(Math.abs(l.a.x - l.b.x), 2);
+    let yside = Math.pow(Math.abs(l.a.y - l.b.y), 2);
+
+    let size = Math.sqrt(xside, yside);
+
+    let rotation = Math.atan2(l.a.x, l.a.y) * 180 / Math.PI;
+
+    let triangle = new Triangle(size, l.a, rotation);
+
+    newFigure.push(new Line(figure[i].a, triangle.a));
+    newFigure.push(new Line(triangle.c, figure[i].b));
+    newFigure.push(new Line(triangle.a, triangle.b));
+    newFigure.push(new Line(triangle.b, triangle.c));
   }
+
+
+  // if (figure.length == 0) {
+    // let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 90);
+
+    // figure.push(new Line(triangle.a, triangle.b));
+    // figure.push(new Line(triangle.b, triangle.c));
+    // figure.push(new Line(triangle.c, triangle.a));
+  //   return;
+  // }
 }
 
 window.onload = main;
