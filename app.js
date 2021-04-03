@@ -76,7 +76,7 @@ function nextStep() {
   figure = [];
 
   if (figure.length == 0) {
-    let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 0);
+    let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 45);
 
     figure.push(new Line(triangle.a, triangle.b));
     figure.push(new Line(triangle.b, triangle.c));
