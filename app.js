@@ -91,8 +91,8 @@ function nextStep() {
 
     let triangle = new Triangle(size, l.a, rotation);
 
-    figure.push(new Line(figure[i].a, triangle.a));
-    figure.push(new Line(triangle.c, figure[i].b));
+    figure.push(new Line(l.a, triangle.a));
+    figure.push(new Line(triangle.c, l.b));
     figure.push(new Line(triangle.a, triangle.b));
     figure.push(new Line(triangle.b, triangle.c));
   }
