@@ -81,21 +81,21 @@ function nextStep() {
   figure.push(new Line(triangle.b, triangle.c));
   figure.push(new Line(triangle.c, triangle.a));
 
-  for (let l of figure) {
-    let xside = Math.pow(Math.abs(l.a.x - l.b.x), 2);
-    let yside = Math.pow(Math.abs(l.a.y - l.b.y), 2);
+  // for (let l of figure) {
+  //   let xside = Math.pow(Math.abs(l.a.x - l.b.x), 2);
+  //   let yside = Math.pow(Math.abs(l.a.y - l.b.y), 2);
 
-    let size = Math.sqrt(xside, yside);
+  //   let size = Math.sqrt(xside, yside);
 
-    let rotation = Math.atan2(l.a.x, l.a.y) * 180 / Math.PI;
+  //   let rotation = Math.atan2(l.a.x, l.a.y) * 180 / Math.PI;
 
-    let triangle = new Triangle(size, l.a, rotation);
+  //   let triangle = new Triangle(size, l.a, rotation);
 
-    figure.push(new Line(l.a, triangle.a));
-    figure.push(new Line(triangle.c, l.b));
-    figure.push(new Line(triangle.a, triangle.b));
-    figure.push(new Line(triangle.b, triangle.c));
-  }
+  //   figure.push(new Line(l.a, triangle.a));
+  //   figure.push(new Line(triangle.c, l.b));
+  //   figure.push(new Line(triangle.a, triangle.b));
+  //   figure.push(new Line(triangle.b, triangle.c));
+  // }
 
 
   // if (figure.length == 0) {
