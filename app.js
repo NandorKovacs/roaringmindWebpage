@@ -23,12 +23,10 @@ function main() {
 
 let frameCount = 0;
 let stepFrequency = 20;
-let didone = false;
 
 function frame() {
-  if (frameCount % 60 / stepFrequency == 0 && !didone) {
+  if (frameCount % 60 / stepFrequency == 0 && !initiated) {
     nextStep();
-    didone = true;
   }
   draw();
   requestAnimationFrame(frame);
@@ -71,41 +69,54 @@ class Coordinate {
 
 let figure = [];
 
-function nextStep() {
-  //let newFigure = figure;
-  figure = [];
+let initiated = false;
+let maxSteps = 5;
+let currentSteps = 0;
 
+
+function nextStep() {
+  if (!initiated) {
+    initiate();
+  }
+
+  if (currentSteps >= maxSteps) {
+    return;
+  }
+
+  let newFigure = [];
+  for (let l of length) {
+    let firstThird = getThird(l, 0);
+    let secondThird = getThird(l, 1);
+    let thirdThird = getThird(l, 2);
+  
+    newFigure.push(firstThird);
+    newFigure.push(thirdThird);
+  
+    let triangle = new Triangle(getLineSize(secondThird), secondThird.a, getLineRotation(secondThird));
+
+    newFigure.push(new Line(triangle.a, triangle.c));
+    newFigure.push(new Line(triangle.c, triangle.b));
+  }
+
+  figure = newFigure;
+}
+
+function getLineSize(l) {
+  return Math.sqrt(Math.pow(Math.abs(l.a.x - l.b.x), 2), Math.pow(Math.abs(l.a.y - l.b.y), 2));
+}
+
+function getLineRotation(l) {
+  return Math.atan(Math.abs(l.a.x - l.b.x) / Math.abs(l.a.y, l.b.y));
+}
+
+function initiate() {
   let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 90);
 
   figure.push(new Line(triangle.a, triangle.b));
   figure.push(new Line(triangle.b, triangle.c));
   figure.push(new Line(triangle.c, triangle.a));
 
-  // for (let l of figure) {
-  //   let xside = Math.pow(Math.abs(l.a.x - l.b.x), 2);
-  //   let yside = Math.pow(Math.abs(l.a.y - l.b.y), 2);
-
-  //   let size = Math.sqrt(xside, yside);
-
-  //   let rotation = Math.atan2(l.a.x, l.a.y) * 180 / Math.PI;
-
-  //   let triangle = new Triangle(size, l.a, rotation);
-
-  //   figure.push(new Line(l.a, triangle.a));
-  //   figure.push(new Line(triangle.c, l.b));
-  //   figure.push(new Line(triangle.a, triangle.b));
-  //   figure.push(new Line(triangle.b, triangle.c));
-  // }
-
-
-  // if (figure.length == 0) {
-    // let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 90);
-
-    // figure.push(new Line(triangle.a, triangle.b));
-    // figure.push(new Line(triangle.b, triangle.c));
-    // figure.push(new Line(triangle.c, triangle.a));
-  //   return;
-  // }
+  initiated = true;
 }
 
 window.onload = main;
