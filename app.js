@@ -29,9 +29,9 @@ function frame(time) {
     initiate();
     draw();
     requestAnimationFrame(frame(Date.now()));
-    return;
+  } else {
+    requestAnimationFrame(frame(time));
   }
-  requestAnimationFrame(frame(time));
 }
 
 function draw() {
