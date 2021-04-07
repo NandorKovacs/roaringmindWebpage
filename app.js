@@ -19,7 +19,7 @@ function main() {
 
   ///
   // Initial figure
-  const size = Math.min(width, height) / 3;
+  const size = Math.min(width / 3, height / 2);
   const triangle = new Triangle(size, new Coordinate(width / 2 - size / 2, height / 2 - size / 3), 0);
 
   figure.push(new Line(triangle.a, triangle.b));
@@ -82,9 +82,9 @@ function nextStep() {
     newFigure.push(firstThird);
     newFigure.push(thirdThird);
 
-    const triangle = new Triangle(getLineLength(secondThird), secondThird.a, getLineAngle(secondThird));
+    const triangle = new Triangle(getLineLength(secondThird), secondThird.a, getLineAngle(secondThird) - 60);
 
-    newFigure.push(new Line(triangle.c, triangle.a));
+    newFigure.push(new Line(triangle.a, triangle.b));
     newFigure.push(new Line(triangle.b, triangle.c));
   }
 
