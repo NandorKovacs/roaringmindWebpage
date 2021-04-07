@@ -26,7 +26,9 @@ let stepFrequency = 20;
 
 function frame(time) {
   if (Date.now() - time >= 16) {
-    initiate();
+    if (!initiated) {
+      initiate();
+    }
     draw();
     requestAnimationFrame(frame(Date.now()));
   } else {
@@ -72,15 +74,8 @@ class Coordinate {
 let figure = [];
 
 let initiated = false;
-let maxSteps = 5;
-let currentSteps = 0;
-
 
 function nextStep() {
-
-  if (currentSteps >= maxSteps) {
-    return;
-  }
 
   let newFigure = [];
   for (let l of figure) {
@@ -98,7 +93,6 @@ function nextStep() {
   }
 
   figure = newFigure;
-  ++currentSteps;
 }
 
 function getLineSize(l) {
@@ -125,6 +119,14 @@ function getThird(l, i) {
     return new Line(new Coordinate(l.a.x + 2 * xl, l.a.y + 2 * yl), l.b);
   }
 }
+
+document.addEventListener('keydown', (event) => {
+  let keyName = event.key;
+
+  if (keyName == " ") {
+    nextStep();
+  }
+}, false);
 
 function initiate() {
   figure = [];
