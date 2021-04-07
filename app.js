@@ -17,7 +17,7 @@ function main() {
 
   // figure =
 
-  requestAnimationFrame(frame);
+  requestAnimationFrame(frame(Date.now() - 16));
 }
 
 
