@@ -17,20 +17,21 @@ function main() {
 
   // figure =
 
-    requestAnimationFrame(frame);
+  requestAnimationFrame(frame);
 }
 
 
 let frameCount = 0;
 let stepFrequency = 20;
 
-function frame() {
-  if (frameCount % 60 / stepFrequency == 0 && !initiated) {
-    nextStep();
-    //initiate();
+function frame(time) {
+  if (Date.now() - time >= 16) {
+    initiate();
+    draw();
+    requestAnimationFrame(frame(Date.now()));
+    return;
   }
-  draw();
-  requestAnimationFrame(frame);
+  requestAnimationFrame(frame(time));
 }
 
 function draw() {
@@ -76,10 +77,6 @@ let currentSteps = 0;
 
 
 function nextStep() {
-  if (!initiated) {
-    initiate();
-    return;
-  }
 
   if (currentSteps >= maxSteps) {
     return;
@@ -121,11 +118,11 @@ function getThird(l, i) {
   }
 
   if (i == 1) {
-    return new Line(new Coordinate(l.a.x + xl, l.a.y +yl), new Coordinate(l.a.x + 2*xl, l.a.y + 2*yl))
+    return new Line(new Coordinate(l.a.x + xl, l.a.y + yl), new Coordinate(l.a.x + 2 * xl, l.a.y + 2 * yl))
   }
 
   if (i == 2) {
-    return new Line(new Coordinate(l.a.x + 2*xl, l.a.y + 2*yl), l.b);
+    return new Line(new Coordinate(l.a.x + 2 * xl, l.a.y + 2 * yl), l.b);
   }
 }
 
