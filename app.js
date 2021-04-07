@@ -99,6 +99,7 @@ function nextStep() {
   }
 
   figure = newFigure;
+  ++currentSteps;
 }
 
 function getLineSize(l) {
