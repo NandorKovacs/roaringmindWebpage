@@ -88,10 +88,10 @@ function nextStep() {
     let firstThird = getThird(l, 0);
     let secondThird = getThird(l, 1);
     let thirdThird = getThird(l, 2);
-  
+
     newFigure.push(firstThird);
     newFigure.push(thirdThird);
-  
+
     let triangle = new Triangle(getLineSize(secondThird), secondThird.a, getLineRotation(secondThird));
 
     newFigure.push(new Line(triangle.a, triangle.c));
@@ -110,6 +110,23 @@ function getLineRotation(l) {
   return Math.atan(Math.abs(l.a.x - l.b.x) / Math.abs(l.a.y, l.b.y));
 }
 
+function getThird(l, i) {
+  let xl = Math.abs(l.a.x - l.b.x);
+  let yl = Math.abs(l.a.y - l.b.y);
+
+  if (i == 0) {
+    return new Line(l.a, new Coordinate(l.a.x + xl, l.a.y + yl));
+  }
+
+  if (i == 1) {
+    return new Line(new Coordinate(l.a.x + xl, l.a.y +yl), new Coordinate(l.a.x + 2*xl, l.a.y + 2*yl))
+  }
+
+  if (i == 2) {
+    return new Line(new Coordinate(l.a.x + 2*xl, l.a.y + 2*yl), l.b);
+  }
+}
+
 function initiate() {
   let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 90);
 
@@ -117,7 +134,7 @@ function initiate() {
   figure.push(new Line(triangle.b, triangle.c));
   figure.push(new Line(triangle.c, triangle.a));
 
-  initiated = true;
+  //initiated = true;
 }
 
 window.onload = main;
