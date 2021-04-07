@@ -84,7 +84,7 @@ function nextStep() {
   }
 
   let newFigure = [];
-  for (let l of length) {
+  for (let l of figure) {
     let firstThird = getThird(l, 0);
     let secondThird = getThird(l, 1);
     let thirdThird = getThird(l, 2);
