@@ -126,6 +126,8 @@ document.addEventListener('keydown', (event) => {
   if (keyName == " ") {
     nextStep();
   }
+
+  console.log("press!!!!");
 }, false);
 
 function initiate() {
