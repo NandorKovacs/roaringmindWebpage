@@ -26,8 +26,8 @@ let stepFrequency = 20;
 
 function frame() {
   if (frameCount % 60 / stepFrequency == 0 && !initiated) {
-    //nextStep();
-    initiate();
+    nextStep();
+    //initiate();
   }
   draw();
   requestAnimationFrame(frame);
@@ -78,6 +78,7 @@ let currentSteps = 0;
 function nextStep() {
   if (!initiated) {
     initiate();
+    return;
   }
 
   if (currentSteps >= maxSteps) {
@@ -129,6 +130,8 @@ function getThird(l, i) {
 }
 
 function initiate() {
+  figure = [];
+
   let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 90);
 
   figure.push(new Line(triangle.a, triangle.b));
