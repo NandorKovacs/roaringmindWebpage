@@ -26,7 +26,8 @@ let stepFrequency = 20;
 
 function frame() {
   if (frameCount % 60 / stepFrequency == 0 && !initiated) {
-    nextStep();
+    //nextStep();
+    initiate();
   }
   draw();
   requestAnimationFrame(frame);
