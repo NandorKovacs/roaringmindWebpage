@@ -9,17 +9,18 @@ let figure = [];
 function main() {
   ///
   // Window & Canvas size
-  const windowX = window.innerWidth;
-  const windowY = window.innerHeight;
+  width = window.innerWidth * window.devicePixelRatio;
+  height = window.innerHeight * window.devicePixelRatio;
 
-  // canvas.width = `${windowX}px`;
-  // canvas.height = `${windowY}px`;
+  canvas.width = width;
+  canvas.height = height;
 
   ctx = canvas.getContext("2d");
 
   ///
   // Initial figure
-  const triangle = new Triangle(width / 3, new Coordinate(width / 3, height / 4), 0);
+  const size = Math.min(width, height) / 3;
+  const triangle = new Triangle(size, new Coordinate(width / 2 - size / 2, height / 2 - size / 3), 0);
 
   figure.push(new Line(triangle.a, triangle.b));
   figure.push(new Line(triangle.b, triangle.c));
