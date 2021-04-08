@@ -120,4 +120,9 @@ document.addEventListener('keydown', (event) => {
   }
 }, false);
 
+document.addEventListener('touchstart', (event) => {
+  event.preventDefault();
+  nextStep();
+}, false);
+
 window.onload = main;
