@@ -1,46 +1,47 @@
+const canvas = document.getElementById("canvas");
+
 let ctx;
 let width = 3840;
 let height = 2160;
+let figure = [];
+
 
 function main() {
-  console.log("main");
-  const windowX = window.innerWidth;
-  const windowY = window.innerHeight;
+  ///
+  // Window & Canvas size
+  width = window.innerWidth * window.devicePixelRatio;
+  height = window.innerHeight * window.devicePixelRatio;
 
-  const cnvs = document.getElementById("cnvs");
+  canvas.width = width;
+  canvas.height = height;
 
-  cnvs.style.width = `${windowX}px`;
-  cnvs.style.height = `${windowY}px`;
+  ctx = canvas.getContext("2d");
 
-  ctx = cnvs.getContext("2d");
+  ///
+  // Initial figure
+  const size = Math.min(width / 3, height / 2);
+  const triangle = new Triangle(size, new Coordinate(width / 2 - size / 2, height / 2 - size / 3), 0);
 
+  figure.push(new Line(triangle.a, triangle.b));
+  figure.push(new Line(triangle.b, triangle.c));
+  figure.push(new Line(triangle.c, triangle.a));
 
-  // figure =
-
-  requestAnimationFrame(frame(Date.now() - 16));
+  ///
+  // Go!
+  requestAnimationFrame(frame);
 }
 
-
-let frameCount = 0;
-let stepFrequency = 20;
-
-function frame(time) {
-  if (Date.now() - time >= 16) {
-    if (!initiated) {
-      initiate();
-    }
-    draw();
-    requestAnimationFrame(frame(Date.now()));
-  } else {
-    requestAnimationFrame(frame(time));
-  }
+function frame() {
+  draw();
+  requestAnimationFrame(frame);
 }
 
 function draw() {
+  ctx.clearRect(0, 0, width, height);
   ctx.beginPath();
 
-
-  for (let l of figure) {
+  for (const l of figure) {
+    // TODO: optimizacio. Mivel egy zart gorbet rajzolunk, nem kell a moveTo
     ctx.moveTo(l.a.x, l.a.y);
     ctx.lineTo(l.b.x, l.b.y);
   }
@@ -50,10 +51,10 @@ function draw() {
 
 class Triangle {
   constructor(size, origin, rotation) {
-    this.a = new Coordinate(origin.x, origin.y);
-    this.b = new Coordinate(Math.cos(rotation * (Math.PI / 180)) * size + origin.x, Math.sin(rotation * (Math.PI / 180)) * size * -1 + origin.y);
+    this.a = origin;
+    this.b = new Coordinate(Math.cos(rotation * (Math.PI / 180)) * size + origin.x, Math.sin(rotation * (Math.PI / 180)) * size + origin.y);
     rotation += 60;
-    this.c = new Coordinate(Math.cos((rotation) * (Math.PI / 180)) * size + origin.x, Math.sin(rotation * (Math.PI / 180)) * size * -1 + origin.y);
+    this.c = new Coordinate(Math.cos(rotation * (Math.PI / 180)) * size + origin.x, Math.sin(rotation * (Math.PI / 180)) * size + origin.y);
   }
 }
 
@@ -71,75 +72,57 @@ class Coordinate {
   }
 }
 
-let figure = [];
-
-let initiated = false;
 
 function nextStep() {
 
-  let newFigure = [];
-  for (let l of figure) {
-    let firstThird = getThird(l, 0);
-    let secondThird = getThird(l, 1);
-    let thirdThird = getThird(l, 2);
+  const newFigure = [];
+  for (const l of figure) {
+    const [firstThird, secondThird, thirdThird] = getThirds(l);
 
     newFigure.push(firstThird);
     newFigure.push(thirdThird);
 
-    let triangle = new Triangle(getLineSize(secondThird), secondThird.a, getLineRotation(secondThird));
+    const triangle = new Triangle(getLineLength(secondThird), secondThird.a, getLineAngle(secondThird) - 60);
 
-    newFigure.push(new Line(triangle.a, triangle.c));
-    newFigure.push(new Line(triangle.c, triangle.b));
+    newFigure.push(new Line(triangle.a, triangle.b));
+    newFigure.push(new Line(triangle.b, triangle.c));
   }
 
   figure = newFigure;
+  console.log(figure.length);
 }
 
-function getLineSize(l) {
-  return Math.sqrt(Math.pow(Math.abs(l.a.x - l.b.x), 2), Math.pow(Math.abs(l.a.y - l.b.y), 2));
+function getLineLength(l) {
+  return Math.sqrt(Math.pow(l.a.x - l.b.x, 2) + Math.pow(l.a.y - l.b.y, 2));
 }
 
-function getLineRotation(l) {
-  return Math.atan(Math.abs(l.a.x - l.b.x) / Math.abs(l.a.y, l.b.y));
+function getLineAngle(l) {
+  return Math.atan2(l.b.y - l.a.y, l.b.x - l.a.x) / Math.PI * 180;
 }
 
-function getThird(l, i) {
-  let xl = Math.abs(l.a.x - l.b.x);
-  let yl = Math.abs(l.a.y - l.b.y);
+function getThirds(l) {
+  const xl = (l.b.x - l.a.x) / 3;
+  const yl = (l.b.y - l.a.y) / 3;
 
-  if (i == 0) {
-    return new Line(l.a, new Coordinate(l.a.x + xl, l.a.y + yl));
-  }
+  const aab = new Coordinate(l.a.x + xl, l.a.y + yl);
+  const abb = new Coordinate(l.a.x + 2 * xl, l.a.y + 2 * yl);
 
-  if (i == 1) {
-    return new Line(new Coordinate(l.a.x + xl, l.a.y + yl), new Coordinate(l.a.x + 2 * xl, l.a.y + 2 * yl))
-  }
-
-  if (i == 2) {
-    return new Line(new Coordinate(l.a.x + 2 * xl, l.a.y + 2 * yl), l.b);
-  }
+  return [
+    new Line(l.a, aab),
+    new Line(aab, abb),
+    new Line(abb, l.b)
+  ];
 }
 
 document.addEventListener('keydown', (event) => {
-  let keyName = event.key;
-
-  if (keyName == " ") {
+  if (event.key == " ") {
     nextStep();
   }
-
-  console.log("press!!!!");
 }, false);
 
-function initiate() {
-  figure = [];
-
-  let triangle = new Triangle(3840 / 3, new Coordinate(3840 / 3, 2160 / 4 * 3), 90);
-
-  figure.push(new Line(triangle.a, triangle.b));
-  figure.push(new Line(triangle.b, triangle.c));
-  figure.push(new Line(triangle.c, triangle.a));
-
-  //initiated = true;
-}
+document.addEventListener('touchstart', (event) => {
+  event.preventDefault();
+  nextStep();
+}, false);
 
 window.onload = main;
